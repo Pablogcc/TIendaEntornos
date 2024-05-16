@@ -17,8 +17,8 @@ public class Cine extends Producto {
 	private String director;
 	private String actor;
 
-	public Cine(String nombre, double precioUnitario, int cantidadStock, boolean disponibilidad, String director) {
-		super(nombre, precioUnitario, cantidadStock, disponibilidad);
+	public Cine(int id, String nombre, double precioUnitario, int cantidadStock, boolean disponibilidad, String director) {
+		super(id, nombre, precioUnitario, cantidadStock, disponibilidad);
 		this.director = director;
 	}
 

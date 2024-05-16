@@ -17,9 +17,9 @@ public class Videojuegos extends Producto {
 	private String multijugador;
 	private String genero;
 
-	public Videojuegos(String nombre, double precioUnitario, int cantidadStock, boolean disponibilidad,
+	public Videojuegos(int id, String nombre, double precioUnitario, int cantidadStock, boolean disponibilidad,
 			String plataforma) {
-		super(nombre, precioUnitario, cantidadStock, disponibilidad);
+		super(id, nombre, precioUnitario, cantidadStock, disponibilidad);
 		this.plataforma = plataforma;
 	}
 

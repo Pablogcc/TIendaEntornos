@@ -7,12 +7,14 @@ package misArticulos;
  * 
  */
 public class Producto {
+	private int id;
 	private String nombre;
 	private double precioUnitario;
 	private int cantidadStock;
 	private boolean disponibilidad;
 
-	public Producto(String nombre, double precioUnitario, int cantidadStock, boolean disponibilidad) {
+	public Producto(int id, String nombre, double precioUnitario, int cantidadStock, boolean disponibilidad) {
+		this.id = id;
 		this.nombre = nombre;
 		this.precioUnitario = precioUnitario;
 		this.cantidadStock = cantidadStock;
@@ -26,6 +28,14 @@ public class Producto {
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setNombre(String nombre) {

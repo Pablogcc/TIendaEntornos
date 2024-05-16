@@ -34,6 +34,7 @@ public class Vproductos {
 
 				System.out.println(
 						"Nombre: " + nombre + ", Precio: $" + precioUnitario + ", Stock: " + cantidadStock + "\n");
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("Error al recuperar los productos desde la base de datos: " + e.getMessage());
@@ -43,12 +44,12 @@ public class Vproductos {
 	public void mostrarProductos(Producto[] productos) {
 		System.out.println("Productos Disponibles: \n");
 		for (Producto producto : productos) {
-			System.out.println("Nombre: " + producto.getNombre() + ", Precio: $" + producto.getPrecioUnitario()
+			System.out.println("ID_producto: " + producto.getId() + "Nombre: " + producto.getNombre() + ", Precio: $" + producto.getPrecioUnitario()
 					+ ", Stock: " + producto.getCantidadStock() + "\n");
 		}
 	}
 
-	public static void comprarArticulos(Connection cn) {
+	public static void comprarArticulos(Connection cn, boolean clienteExistente) {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("===== COMPRAR EL ARTÍCULO =====");
@@ -59,6 +60,7 @@ public class Vproductos {
 		int cantidad = scanner.nextInt();
 
 		// Solicitar los datos del cliente
+		if(!clienteExistente) {
 		System.out.println("Ingrese el número de cliente:");
 		int numeroCliente = scanner.nextInt();
 		System.out.println("Ingrese el nombre del cliente:");
@@ -74,19 +76,20 @@ public class Vproductos {
 		System.out.println("Ingrese el país del cliente:");
 		String pais = scanner.next();
 		System.out.println("Ingrese el código postal del cliente:");
-		String codigoPostal = scanner.next();
+		int codigoPostal = scanner.nextInt();
 		System.out.println("Ingrese el teléfono del cliente:");
-		String telefono = scanner.next();
+		int telefono = scanner.nextInt();
 		System.out.println("Ingrese el correo electrónico del cliente:");
 		String correo = scanner.next();
 		System.out.println("Ingrese observaciones sobre el cliente:");
 		String observaciones = scanner.next();
-
+		
 		// Generar el ticket y guardar la compra en la base de datos
 		generarTicket(cn, nombre, cantidad, numeroCliente);
 		// Guardar los datos del cliente en la base de datos
 		guardarCliente(cn, numeroCliente, nombreCliente, apellidos, direccion, localidad, provincia, pais, codigoPostal,
 				telefono, correo, observaciones);
+		}
 	}
 
 	private static void generarTicket(Connection cn, String nombre, int cantidad, int numeroCliente) {
@@ -105,7 +108,7 @@ public class Vproductos {
 	}
 
 	private static void guardarCliente(Connection cn, int numeroCliente, String nombreCliente, String apellidos,
-            String direccion, String localidad, String provincia, String pais, String codigoPostal, String telefono,
+            String direccion, String localidad, String provincia, String pais, int codigoPostal, int telefono,
             String correo, String observaciones) {
         // Verificar si el cliente ya existe en la base de datos
         if (clienteExiste(cn, numeroCliente)) {
@@ -123,8 +126,8 @@ public class Vproductos {
                 ps.setString(5, localidad);
                 ps.setString(6, provincia);
                 ps.setString(7, pais);
-                ps.setString(8, codigoPostal);
-                ps.setString(9, telefono);
+                ps.setInt(8, codigoPostal);
+                ps.setInt(9, telefono);
                 ps.setString(10, correo);
                 ps.setString(11, observaciones);
 
@@ -155,7 +158,7 @@ private static boolean clienteExiste(Connection cn, int numeroCliente) {
     }
 
     private static void actualizarCliente(Connection cn, int numeroCliente, String nombreCliente, String apellidos,
-            String direccion, String localidad, String provincia, String pais, String codigoPostal, String telefono,
+            String direccion, String localidad, String provincia, String pais, int codigoPostal, int telefono,
             String correo, String observaciones) {
         String updateClienteSQL = "UPDATE Cliente SET nombre=?, apellidos=?, direccion=?, localidad=?, provincia=?, pais=?, codigoPostal=?, telefono=?, mail=?, observaciones=? WHERE numeroCliente=?";
         try (PreparedStatement ps = cn.prepareStatement(updateClienteSQL)) {
@@ -165,8 +168,8 @@ private static boolean clienteExiste(Connection cn, int numeroCliente) {
             ps.setString(4, localidad);
             ps.setString(5, provincia);
             ps.setString(6, pais);
-            ps.setString(7, codigoPostal);
-            ps.setString(8, telefono);
+            ps.setInt(7, codigoPostal);
+            ps.setInt(8, telefono);
             ps.setString(9, correo);
             ps.setString(10, observaciones);
             ps.setInt(11, numeroCliente);
@@ -202,9 +205,9 @@ private static boolean clienteExiste(Connection cn, int numeroCliente) {
 		System.out.print("País: ");
 		String pais = scanner.nextLine();
 		System.out.print("Código Postal: ");
-		String codigoPostal = scanner.nextLine();
+		int codigoPostal = scanner.nextInt();
 		System.out.print("Teléfono: ");
-		String telefono = scanner.nextLine();
+		int telefono = scanner.nextInt();
 		System.out.print("Correo electrónico: ");
 		String mail = scanner.nextLine();
 		System.out.print("Observaciones: ");

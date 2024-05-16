@@ -18,8 +18,8 @@ public class Musica extends Producto {
 	private String duracion;
 	private String selloDiscografico;
 
-	public Musica(String nombre, double precioUnitario, int cantidadStock, boolean disponibilidad, String artista) {
-		super(nombre, precioUnitario, cantidadStock, disponibilidad);
+	public Musica(int id, String nombre, double precioUnitario, int cantidadStock, boolean disponibilidad, String artista) {
+		super(id, nombre, precioUnitario, cantidadStock, disponibilidad);
 		this.artista = artista;
 	}
 
