@@ -1,13 +1,13 @@
 /**
  * 
  */
-package app;
+package miPersona;
+
+import java.util.Date;
 
 /**
  * 
  */
-import java.util.Date;
-
 public class Albaran {
 	private int codigo;
 	private int numeroAlbaran;

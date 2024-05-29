@@ -6,6 +6,7 @@ import misArticulos.Producto;
 import misArticulos.Vproductos;
 import java.sql.Connection;
 import java.util.Scanner;
+import miPersona.Vcliente;
 
 import baseDeDatos.ConexionBD;
 
@@ -42,7 +43,7 @@ public class Aplicacion {
 		if (respuesta.equalsIgnoreCase("si")) {
 			System.out.println("Ingrese su número de cliente:");
 			numeroCliente = sc.nextInt();
-			nombreClienteExistente = Vproductos.verificarClienteExistente(cn, numeroCliente);
+			nombreClienteExistente = Vcliente.verificarClienteExistente(cn, numeroCliente);
 			if (nombreClienteExistente != null) {
 				clienteExistente = true;
 				System.out.println("Bienvenido de nuevo, " + nombreClienteExistente + "!");
