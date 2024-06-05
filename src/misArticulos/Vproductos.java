@@ -6,10 +6,9 @@ package misArticulos;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Scanner;
-
-import miPersona.Cliente;
-import misArticulos.Producto;
+import java.util.TreeMap;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +23,10 @@ public class Vproductos {
 
 		String sql = "SELECT nombre, precioUnitario, cantidadStock FROM Producto WHERE disponibilidad = true";
 
+		// Aquí hacemos el TreeMap para guardar los productos de la base de datos en un
+		// TreeMap:
+		TreeMap<String, Producto> productbd = new TreeMap<>();
+
 		try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 			ResultSet resultSet = statement.executeQuery();
 
@@ -32,13 +35,19 @@ public class Vproductos {
 				double precioUnitario = resultSet.getDouble("precioUnitario");
 				int cantidadStock = resultSet.getInt("cantidadStock");
 
-				System.out.println(
-						"Nombre: " + nombre + ", Precio: $" + precioUnitario + ", Stock: " + cantidadStock + "\n");
+				productbd.put(nombre, new Producto(cantidadStock, nombre, precioUnitario, cantidadStock, true));
 
 			}
 		} catch (SQLException e) {
 			System.out.println("Error al recuperar los productos desde la base de datos: " + e.getMessage());
 		}
+
+		for (Map.Entry<String, Producto> entry : productbd.entrySet()) {
+			Producto producto = entry.getValue();
+			System.out.println("Nombre: " + producto.getNombre() + ", Precio: $" + producto.getPrecioUnitario()
+					+ ", Stock: " + producto.getCantidadStock());
+		}
+
 	}
 
 	public void mostrarProductos(Producto[] productos) {
@@ -107,12 +116,6 @@ public class Vproductos {
 			System.err.println("Error al generar el ticket: " + e.getMessage());
 		}
 	}
-
-	
-
-	
-
-	
 
 	private static void guardarTicket(Producto producto, int cantidad, double total) {
 		String url = "jdbc:mysql://localhost:9999/bd_ejemplo";

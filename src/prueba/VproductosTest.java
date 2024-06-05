@@ -23,8 +23,7 @@ public class VproductosTest {
 
 	@BeforeEach
 	public void setUp() {
-		// Aquí se inicializa la conexión a la base de datos y la instancia de
-		// Vproductos
+		// Aquí se inicializa la conexión a la base de datos y la instancia de la clase Vproductos
 		ConexionBD conexion = new ConexionBD();
 		cn = conexion.conectar();
 		visualizador = new Vproductos();
