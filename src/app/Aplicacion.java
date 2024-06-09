@@ -48,7 +48,7 @@ public class Aplicacion {
 				clienteExistente = true;
 				System.out.println("Bienvenido de nuevo, " + nombreClienteExistente + "!");
 			} else {
-				System.out.println("El cliente con el número " + numeroCliente + " no existe.");
+				System.out.println("El cliente con el numero " + numeroCliente + " no existe.");
 			}
 		}
 

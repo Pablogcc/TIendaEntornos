@@ -23,8 +23,7 @@ public class Vproductos {
 
 		String sql = "SELECT nombre, precioUnitario, cantidadStock FROM Producto WHERE disponibilidad = true";
 
-		// Aquí hacemos el TreeMap para guardar los productos de la base de datos en un
-		// TreeMap:
+		// Aquí hacemos el TreeMap para guardar los productos de la base de datos en un TreeMap:
 		TreeMap<String, Producto> productbd = new TreeMap<>();
 
 		try (PreparedStatement statement = conexion.prepareStatement(sql)) {
@@ -34,18 +33,19 @@ public class Vproductos {
 				String nombre = resultSet.getString("nombre");
 				double precioUnitario = resultSet.getDouble("precioUnitario");
 				int cantidadStock = resultSet.getInt("cantidadStock");
-
+				// Aquí meto los productos de la base de datos en el TreeMap
 				productbd.put(nombre, new Producto(cantidadStock, nombre, precioUnitario, cantidadStock, true));
 
 			}
 		} catch (SQLException e) {
 			System.out.println("Error al recuperar los productos desde la base de datos: " + e.getMessage());
 		}
-
+		// Y luego por aquí salen todos los productos metidos en el TreeMap
 		for (Map.Entry<String, Producto> entry : productbd.entrySet()) {
 			Producto producto = entry.getValue();
 			System.out.println("Nombre: " + producto.getNombre() + ", Precio: $" + producto.getPrecioUnitario()
 					+ ", Stock: " + producto.getCantidadStock());
+			System.out.println("___________________________________________");
 		}
 
 	}
